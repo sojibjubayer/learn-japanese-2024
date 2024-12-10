@@ -2,7 +2,7 @@ import React from 'react';
 
 const Lessons = () => {
     return (
-        <div>
+        <div className='min-h-screen'>
             Lessons
         </div>
     );
