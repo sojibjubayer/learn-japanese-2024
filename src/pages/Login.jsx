@@ -18,7 +18,7 @@ const Login = () => {
     e.preventDefault();
     
     const email = e.target.email.value;
-    const password = e.target.name.value;
+    const password = e.target.password.value;
 
 
     const user={email,password}
@@ -32,7 +32,8 @@ const Login = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            user
+            email:email,
+            password:password
         }),
         credentials: 'include', 
       });
