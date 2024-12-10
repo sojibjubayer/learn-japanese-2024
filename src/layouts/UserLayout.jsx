@@ -6,6 +6,7 @@ import Footer from "../components/Footer";
 
 
 const UserLayout = () => {
+    
     return (
         <div>
            

@@ -2,7 +2,7 @@ import {jwtDecode} from "jwt-decode";
 import { useEffect, useState } from "react";
 import { Navigate } from "react-router-dom";
 
-const UserRoute = ({ children }) => {
+const AdminRoute = ({ children }) => {
   const [loading,setLoading]=useState(true);
   const [role, setRole] = useState(null); 
   const token = localStorage.getItem("token");
@@ -45,4 +45,4 @@ const UserRoute = ({ children }) => {
   return <Navigate to="/unauthorized" />;
 };
 
-export default UserRoute;
+export default AdminRoute;

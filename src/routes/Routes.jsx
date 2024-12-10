@@ -9,6 +9,7 @@ import Login from "../pages/Login";
 import UserRoute from "./UserRoute";
 import Tutorials from "../pages/Tutorials";
 import AdminDashboard from "../pages/admin/AdminDashboard";
+import AdminRoute from "./AdminRoute";
 
 
 
@@ -43,16 +44,30 @@ export const router=createBrowserRouter([
         }, 
 
         //AdminPart
-        {
-          path: '/dashboard',
-          element: <AdminDashboard></AdminDashboard>
-      }, 
+      //   {
+      //     path: '/dashboard',
+      //     element: <AdminRoute><AdminDashboard></AdminDashboard></AdminRoute>
+      // }, 
       
         
         
         
       ]
     },
+    //ADMIN DASHBOARD
+    {
+      path: '/dashboard',
+      element: <AdminRoute><AdminDashboard></AdminDashboard></AdminRoute>,
+      children: [
+        //normal user routes
+        // {
+        //   path:'userHome',
+        //   element:<PrivateRoute><UserHome></UserHome></PrivateRoute>
+
+        // },
+       
+      ]
+    }
 
    
   ]);
