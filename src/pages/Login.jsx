@@ -1,30 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 
-
-
 const Login = () => {
-  
   const [errorMessage, setErrorMessage] = useState('');
-  const [loading, setLoading] = useState(false); // New loading state
+  const [loading, setLoading] = useState(false);
+//   const [user, setUser] = useState({}); 
 
   const navigate = useNavigate();
 
- 
-
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     const email = e.target.email.value;
     const password = e.target.password.value;
 
-
-    const user={email,password}
-   
-
-    setLoading(true); // Set loading to true
+    setLoading(true);
     try {
       const response = await fetch('http://localhost:5000/api/login', {
         method: 'POST',
@@ -32,22 +23,34 @@ const Login = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            email:email,
-            password:password
+          email,
+          password,
         }),
-        credentials: 'include', 
+        credentials: 'include', // Include credentials for cookie-based authentication
       });
 
       if (response.ok) {
-        toast.success('Successfully Loggedin');
         const data = await response.json();
-        
-        localStorage.setItem('token', data.token); 
+        console.log(data);
 
-        setTimeout(() => {
-          setLoading(false); 
-          navigate('/');
-        }, 1500);
+        if (data.token) { 
+          localStorage.setItem('token', data.token);
+          
+
+          toast.success('Successfully Logged In!');
+          
+
+          
+          if (data.role === 'admin') {
+            navigate('/dashboard');
+          } else if (data.role === 'user') {
+            navigate('/lessons');
+          } else {
+            navigate('/login'); 
+          }
+        } else {
+          setErrorMessage('Token missing in response.');
+        }
       } else {
         const errorData = await response.json();
         setErrorMessage(errorData.message || 'Login failed');
@@ -56,9 +59,35 @@ const Login = () => {
       console.error('Error during login:', error);
       setErrorMessage('Login failed. Please try again.');
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
   };
+
+  // Check for existing token and retrieve user role upon component mount
+//   useEffect(() => {
+//     const token = localStorage.getItem('token');
+//     if (token) {
+//       // Fetch user data based on token (if your backend supports it)
+//       fetch('http://localhost:5000/api/user-data', { // Replace with your user data endpoint
+//         headers: {
+//           Authorization: `Bearer ${token}`,
+//         },
+//       })
+//         .then((response) => response.json())
+//         .then((data) => {
+//           if (data.user) { // Check for user data presence
+//             setUser(data.user);
+//             // Redirect to appropriate dashboard or other page based on user role
+//             if (user === 'admin') {
+//               navigate('/admin-dashboard');
+//             } else if (user === 'user') {
+//               navigate('/lessons');
+//             }
+//           }
+//         })
+//         .catch((error) => console.error('Error fetching user data:', error));
+//     }
+//   }, []);
 
   return (
     <div className="flex items-center justify-center bg-gray-100">
@@ -70,7 +99,7 @@ const Login = () => {
         <form className="space-y-6" onSubmit={handleSubmit}>
           {/* Name Input */}
           <div>
-            <label className="block text-sm font-medium text-gray-700">Name</label>
+            <label className="block text-sm font-medium text-gray-700">Email</label>
             <input
               type="text"
               name="email"
@@ -82,7 +111,7 @@ const Login = () => {
 
          
           <div>
-            <label className="block text-sm font-medium text-gray-700">Mobile Number</label>
+            <label className="block text-sm font-medium text-gray-700">Password</label>
             <input
               type="password"
               name="password"
@@ -106,9 +135,10 @@ const Login = () => {
             </button>
           </div>
           <div className='text-center text-sm'>
-            <p>Registerd? <br /> <Link to="/register" className='text-blue-600'>register here</Link> </p>
+            <p>New Here ?  <Link to="/register" className='text-blue-600'>Register here</Link> </p>
           </div>
         </form>
+      
       </div>
       
       <Toaster position="top-center" />

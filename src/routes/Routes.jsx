@@ -6,6 +6,9 @@ import NotFound from "../pages/NotFound";
 import Lessons from "../pages/Lessons";
 import Register from "../pages/Register";
 import Login from "../pages/Login";
+import UserRoute from "./UserRoute";
+import Tutorials from "../pages/Tutorials";
+import AdminDashboard from "../pages/admin/AdminDashboard";
 
 
 
@@ -19,7 +22,15 @@ export const router=createBrowserRouter([
       children: [
         {
             path: '/',
-            element: <Lessons></Lessons>
+            element: <UserRoute><Lessons></Lessons></UserRoute>
+        }, 
+        {
+            path: '/lessons',
+            element: <UserRoute><Lessons></Lessons></UserRoute>
+        }, 
+        {
+            path: '/tutorials',
+            element: <UserRoute><Tutorials></Tutorials></UserRoute>
         }, 
         {
             path: '/register',
@@ -30,6 +41,12 @@ export const router=createBrowserRouter([
             path: '/login',
             element: <Login></Login>
         }, 
+
+        //AdminPart
+        {
+          path: '/dashboard',
+          element: <AdminDashboard></AdminDashboard>
+      }, 
       
         
         
