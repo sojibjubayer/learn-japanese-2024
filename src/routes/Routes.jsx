@@ -14,6 +14,7 @@ import AddLesson from "../pages/admin/AddLesson";
 import AddVocabulary from "../pages/admin/AddVocabulary";
 import ManageUsers from "../pages/admin/ManageUsers";
 import LessonManagement from "../pages/admin/LessonManagement";
+import ManageVocabularies from "../pages/admin/ManageVocabularies";
 
 
 export const router=createBrowserRouter([
@@ -45,13 +46,7 @@ export const router=createBrowserRouter([
         }, 
         
 
-        //AdminPart
-      //   {
-      //     path: '/dashboard',
-      //     element: <AdminRoute><AdminDashboard></AdminDashboard></AdminRoute>
-      // }, 
-      
-        
+       
         
         
       ]
@@ -77,6 +72,10 @@ export const router=createBrowserRouter([
         {
           path:'manage-lessons',
           element:<AdminRoute><LessonManagement></LessonManagement></AdminRoute>
+        },
+        {
+          path:'manage-vocabularies',
+          element:<AdminRoute><ManageVocabularies></ManageVocabularies></AdminRoute>
         },
        
       ]
