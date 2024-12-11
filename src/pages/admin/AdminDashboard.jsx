@@ -12,7 +12,7 @@ const AdminDashboard = () => {
   };
 
   return (
-    <div className="flex h-screen overflow-hidden">
+    <div className="flex  overflow-hidden">
       {/* Sidebar for larger screens */}
       <div
         className={`fixed z-40 md:relative md:z-auto transition-transform transform ${

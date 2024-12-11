@@ -4,15 +4,16 @@ import { FiSettings } from "react-icons/fi";
 
 const Sidebar = ({ closeSidebar }) => {
   const menuItems = [
-    { name: "Manage Lessons", icon: AiFillBook, path: "/admin/manage-lessons" },
-    { name: "Add Lesson", icon: AiFillBook, path: "/admin/add-lesson" },
-    { name: "Manage Vocabularies", icon: FiSettings, path: "/admin/manage-vocabularies" },
-    { name: "Add Vocabulary", icon: FiSettings, path: "/admin/add-vocabulary" },
-    { name: "Manage Users", icon: AiOutlineUser, path: "/admin/manage-users" },
+    { name: "Lessons", icon: AiFillBook, path: "/dashboard/lessons" },
+    { name: "Add Lessons", icon: AiFillBook, path: "/dashboard/add-lesson" },
+    { name: "Add Vocabularies", icon: FiSettings, path: "/dashboard/add-vocabulary" },
+    { name: "Manage Users", icon: AiOutlineUser, path: "/dashboard/manage-users" },
+    { name: "Lesson Management", icon: AiFillBook, path: "/dashboard/manage-lessons" },
+    { name: "Vocabulary Management", icon: FiSettings, path: "/dashboard/manage-vocabularies" },
   ];
 
   return (
-    <div className="p-4 space-y-4 text-white">
+    <div className="p-4 space-y-4 h-screen bg-gray-800 text-white overflow-y-auto">
       {menuItems.map((item, index) => (
         <NavLink
           key={index}

@@ -10,9 +10,8 @@ import UserRoute from "./UserRoute";
 import Tutorials from "../pages/Tutorials";
 import AdminDashboard from "../pages/admin/AdminDashboard";
 import AdminRoute from "./AdminRoute";
-
-
-
+import AddLesson from "../pages/admin/AddLesson";
+import AddVocabulary from "../pages/admin/AddVocabulary";
 
 
 export const router=createBrowserRouter([
@@ -59,12 +58,15 @@ export const router=createBrowserRouter([
       path: '/dashboard',
       element: <AdminRoute><AdminDashboard></AdminDashboard></AdminRoute>,
       children: [
-        //normal user routes
-        // {
-        //   path:'userHome',
-        //   element:<PrivateRoute><UserHome></UserHome></PrivateRoute>
-
-        // },
+        
+        {
+          path:'add-lesson',
+          element:<AdminRoute><AddLesson></AddLesson></AdminRoute>
+        },
+        {
+          path:'add-vocabulary',
+          element:<AdminRoute><AddVocabulary></AddVocabulary></AdminRoute>
+        },
        
       ]
     }
