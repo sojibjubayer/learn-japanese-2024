@@ -13,7 +13,7 @@ import AdminRoute from "./AdminRoute";
 import AddLesson from "../pages/admin/AddLesson";
 import AddVocabulary from "../pages/admin/AddVocabulary";
 import ManageUsers from "../pages/admin/ManageUsers";
-import TestScroll from "../pages/admin/TestScroll";
+import LessonManagement from "../pages/admin/LessonManagement";
 
 
 export const router=createBrowserRouter([
@@ -43,10 +43,7 @@ export const router=createBrowserRouter([
             path: '/login',
             element: <Login></Login>
         }, 
-        {
-            path: '/scroll',
-            element: <TestScroll></TestScroll>
-        }, 
+        
 
         //AdminPart
       //   {
@@ -76,6 +73,10 @@ export const router=createBrowserRouter([
         {
           path:'manage-users',
           element:<AdminRoute><ManageUsers></ManageUsers></AdminRoute>
+        },
+        {
+          path:'manage-lessons',
+          element:<AdminRoute><LessonManagement></LessonManagement></AdminRoute>
         },
        
       ]
