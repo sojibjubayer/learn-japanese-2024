@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
-const ManageUsers = () => {
+const TestScroll = () => {
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [updatingUserId, setUpdatingUserId] = useState(null); 
@@ -42,7 +42,7 @@ const ManageUsers = () => {
         <div className=" mx-auto p-4">
             <h1 className="text-2xl font-bold mb-4">Manage Users</h1>
             {users.length > 0 ? (
-                 <div className="w-full overflow-x-scroll">
+                <div className="w-full overflow-x-scroll">
                     <table className="w-full  border border-gray-200 ">
                         <thead>
                             <tr className="bg-gray-100">
@@ -90,4 +90,4 @@ const ManageUsers = () => {
     
 };
 
-export default ManageUsers;
+export default TestScroll;
