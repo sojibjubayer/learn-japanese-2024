@@ -12,6 +12,7 @@ import AdminDashboard from "../pages/admin/AdminDashboard";
 import AdminRoute from "./AdminRoute";
 import AddLesson from "../pages/admin/AddLesson";
 import AddVocabulary from "../pages/admin/AddVocabulary";
+import ManageUsers from "../pages/admin/ManageUsers";
 
 
 export const router=createBrowserRouter([
@@ -66,6 +67,10 @@ export const router=createBrowserRouter([
         {
           path:'add-vocabulary',
           element:<AdminRoute><AddVocabulary></AddVocabulary></AdminRoute>
+        },
+        {
+          path:'manage-users',
+          element:<AdminRoute><ManageUsers></ManageUsers></AdminRoute>
         },
        
       ]
