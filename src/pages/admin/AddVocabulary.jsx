@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import {jwtDecode} from 'jwt-decode'; // Correct import for jwt-decode
 
 const AddVocabulary = () => {
   const [word, setWord] = useState('');
@@ -8,6 +9,20 @@ const AddVocabulary = () => {
   const [lessonNumber, setLessonNumber] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  const [adminEmail, setAdminEmail] = useState('');
+
+  
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        const decodedToken = jwtDecode(token);
+        setAdminEmail(decodedToken.email); 
+      } catch (error) {
+        console.error('Error decoding token:', error);
+      }
+    }
+  }, []); 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,12 +34,17 @@ const AddVocabulary = () => {
       return;
     }
 
+    if (!adminEmail) {
+      setErrorMessage('Admin email is required.');
+      setSuccessMessage('');
+      return;
+    }
+
     try {
-      
       setErrorMessage('');
       setSuccessMessage('');
 
-     
+   
       const response = await fetch('http://localhost:5000/api/dashboard/add-vocabulary', {
         method: 'POST',
         headers: {
@@ -36,12 +56,12 @@ const AddVocabulary = () => {
           meaning,
           whenToSay,
           lessonNumber: Number(lessonNumber),
+          adminEmail, 
         }),
       });
 
       const data = await response.json();
 
-      
       if (response.ok && data.success) {
         setSuccessMessage('Vocabulary added successfully!');
         setWord('');
@@ -126,6 +146,19 @@ const AddVocabulary = () => {
             onChange={(e) => setLessonNumber(e.target.value)}
             className="mt-1 block w-full px-4 py-2 border rounded-md shadow-sm focus:ring focus:ring-blue-300"
             placeholder="Enter lesson number"
+          />
+        </div>
+        
+        <div>
+          <label htmlFor="adminEmail" className="block font-medium text-gray-700">
+            Admin Email
+          </label>
+          <input
+            id="adminEmail"
+            type="text"
+            value={adminEmail}
+            className="mt-1 block w-full px-4 py-2 border rounded-md shadow-sm focus:ring focus:ring-blue-300"
+            readOnly
           />
         </div>
         <button

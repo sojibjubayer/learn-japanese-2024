@@ -15,6 +15,7 @@ import AddVocabulary from "../pages/admin/AddVocabulary";
 import ManageUsers from "../pages/admin/ManageUsers";
 import LessonManagement from "../pages/admin/LessonManagement";
 import ManageVocabularies from "../pages/admin/ManageVocabularies";
+import LessonDetails from "../pages/LessonDetails";
 
 
 export const router=createBrowserRouter([
@@ -43,6 +44,11 @@ export const router=createBrowserRouter([
         {
             path: '/login',
             element: <Login></Login>
+        }, 
+        //FOR USERS
+        {
+            path: '/lesson/:lessonNo',
+            element: <UserRoute><LessonDetails></LessonDetails></UserRoute>
         }, 
         
 
