@@ -85,7 +85,7 @@ const ManageTutorials = () => {
   };
 
   return (
-    <div className="w-[95%] md:w-[70%] mx-auto p-6 bg-gray-200 my-6">
+    <div className="w-[95%] md:w-[70%] mx-auto p-6 bg-gray-100 my-6">
       <h2 className="text-2xl font-bold text-center text-gray-700 mb-4">Tutorial Management</h2>
 
       <form onSubmit={handleAddTutorial} className="mb-6">

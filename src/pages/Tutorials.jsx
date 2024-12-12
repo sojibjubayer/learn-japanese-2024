@@ -27,7 +27,7 @@ const Tutorials = () => {
     }, []);
 
     if (loading) {
-        return <div className="text-center mt-10">Loading tutorials...</div>;
+        return <div className="mt-2 h-screen">Loading tutorials...</div>;
     }
 
     if (error) {
