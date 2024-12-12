@@ -30,8 +30,7 @@ const Login = () => {
       });
 
       if (response.ok) {
-        const data = await response.json();
-        console.log(data);
+        const data = await response.json();       
 
         if (data.token) { 
           localStorage.setItem('token', data.token);
@@ -63,38 +62,14 @@ const Login = () => {
     }
   };
 
-  // Check for existing token and retrieve user role upon component mount
-//   useEffect(() => {
-//     const token = localStorage.getItem('token');
-//     if (token) {
-//       // Fetch user data based on token (if your backend supports it)
-//       fetch('http://localhost:5000/api/user-data', { // Replace with your user data endpoint
-//         headers: {
-//           Authorization: `Bearer ${token}`,
-//         },
-//       })
-//         .then((response) => response.json())
-//         .then((data) => {
-//           if (data.user) { // Check for user data presence
-//             setUser(data.user);
-//             // Redirect to appropriate dashboard or other page based on user role
-//             if (user === 'admin') {
-//               navigate('/admin-dashboard');
-//             } else if (user === 'user') {
-//               navigate('/lessons');
-//             }
-//           }
-//         })
-//         .catch((error) => console.error('Error fetching user data:', error));
-//     }
-//   }, []);
 
   return (
     <div className="flex items-center justify-center bg-gray-100">
       
 
-      <div className="md:w-[40%] max-w-md w-[95%] p-8 bg-white rounded shadow-lg my-4">
-        <h2 className="font-bold text-center text-[#006A67] text-xl">Login</h2>
+      <div className="md:w-[40%] max-w-md w-[95%]  p-8 bg-white rounded shadow-lg my-4">
+        <h2 className="font-bold text-center text-[#006A67] text-2xl mb-6">Login</h2>
+        <h2 className=" text-center text-[#006A67] text-base mb-10">Please login to learn japanese.</h2>
        
         <form className="space-y-6" onSubmit={handleSubmit}>
           {/* Name Input */}
@@ -128,14 +103,14 @@ const Login = () => {
           <div>
             <button
               type="submit"
-              className="w-full px-4 py-2 text-[#FFF4B7] bg-[#006A67]"
+              className="w-full px-4 py-2 font-semibold text-gray-50 bg-[#DA9E94]"
               disabled={loading} 
             >
               {loading ? 'Logging in...' : 'Submit'} 
             </button>
           </div>
           <div className='text-center text-sm'>
-            <p>New Here ?  <Link to="/register" className='text-blue-600'>Register here</Link> </p>
+            <p>New Here ?  <Link to="/register" className='text-blue-600 ml-5'>Register here</Link> </p>
           </div>
         </form>
       

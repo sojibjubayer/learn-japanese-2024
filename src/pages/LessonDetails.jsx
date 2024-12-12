@@ -43,7 +43,7 @@ const LessonDetails = () => {
 
     const playPronunciation = (text) => {
         const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = 'ja-JP'; // Japanese language code
+        utterance.lang = 'ja-JP'; 
         speechSynthesis.speak(utterance);
     };
 
@@ -54,40 +54,39 @@ const LessonDetails = () => {
     const currentLesson = lessonData[currentIndex];
 
     return (
-        <div className="min-h-screen bg-gray-100 p-6">
+        <div className="min-h-screen bg-gray-100 p-2 md:p-6 ">
             {isComplete && <Confetti />}
-            <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6">
+            <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg md:p-6 p-3">
                 <h1 className="text-3xl font-semibold text-center mb-6">{currentLesson.word}</h1>
 
                 <div className="flex flex-col items-center space-y-6">
                     <div className="text-lg font-medium">Vocabulary:</div>
                     <div className="bg-gray-100 p-4 rounded-md shadow-md w-full md:w-3/4">
-                        <div className="flex justify-between items-center">
-                            <h2 className="text-xl font-semibold">{currentLesson.word}</h2>
+                        <div className="flex flex-col md:flex-row justify-between gap-2 items-center">
+                            <h2 className="text-xl font-semibold">Word: {currentLesson.word}</h2>
                             <button
-                                className="bg-blue-500 text-white p-2 rounded-full shadow-md hover:bg-blue-600"
+                                className="bg-[#E1BEE7] text-[#4A4A4A] p-2 rounded-full shadow-md hover:bg-[#FCE4EC]"
                                 onClick={() => playPronunciation(currentLesson.pronunciation)}
                                 aria-label="Play pronunciation"
                             >
-                                {/* Play Icon */}
                                 <FaPlay />
                             </button>
                         </div>
-                        <p className="text-sm text-gray-600">Pronunciation: {currentLesson.pronunciation}</p>
-                        <p className="mt-2">{currentLesson.meaning}</p>
+                        <p className="text-sm text-gray-600 md:mt-4 mt-2">Pronunciation: {currentLesson.pronunciation}</p>
+                        <p className="mt-2">Meaning: {currentLesson.meaning}</p>
                         <p className="mt-2 text-sm text-gray-500">{currentLesson.whenToSay}</p>
                     </div>
 
                     <div className="flex space-x-4">
                         <button
-                            className="bg-blue-500 text-white p-2 rounded-lg shadow-md hover:bg-blue-600"
+                            className="bg-[#E1BEE7] w-20 text-[#4A4A4A] p-2 rounded-lg shadow-md hover:bg-[#FCE4EC] "
                             onClick={goToPreviousVocabulary}
                             disabled={currentIndex === 0}
                         >
                             Previous
                         </button>
                         <button
-                            className="bg-blue-500 text-white p-2 rounded-lg shadow-md hover:bg-blue-600"
+                            className="bg-[#E1BEE7] w-20 text-[#4A4A4A] p-2 rounded-lg shadow-md hover:bg-[#FCE4EC] "
                             onClick={goToNextVocabulary}
                             disabled={currentIndex === lessonData.length - 1}
                         >

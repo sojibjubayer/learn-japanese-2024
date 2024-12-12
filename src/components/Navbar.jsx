@@ -1,108 +1,85 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { IoMdMenu } from "react-icons/io";
+import { RxCross2 } from "react-icons/rx";
 
-const Navbar = ({ isAdmin }) => {
+const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
 
   const isAuthenticated = !!localStorage.getItem("token");
 
-  // Logout handler
   const handleLogout = () => {
     localStorage.removeItem("token");
     navigate("/login");
   };
 
   return (
-    <nav className="bg-[#032F30] text-white">
-      <div className="container mx-auto flex justify-between items-center py-4 px-6">
-        {/* Logo */}
-        <div className="text-2xl font-bold">
-          <Link to={isAdmin ? "/dashboard" : "/lessons"}>~日本~ Learn</Link>
+    <div className="bg-[#FCE4EC] text-[#4A4A4A] px-4">
+      <div className="flex justify-between items-center h-14 font-semibold">
+        {/* Brand Name */}
+        <Link to="/" className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold">Learn 日本語</Link>
+
+        {/* Menu Icon for Mobile */}
+        <div className="sm:hidden" onClick={() => setMenuOpen(!menuOpen)}>
+          <button className="text-2xl bg-[#E1BEE7] text-[4A4A4A] mt-1">
+            {menuOpen ? <RxCross2 /> : <IoMdMenu />}
+          </button>
         </div>
 
-        {/* Hamburger Menu for Mobile */}
-        <button
-          className="block md:hidden text-white"
-          onClick={() => setMenuOpen(!menuOpen)}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d={menuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
-            />
-          </svg>
-        </button>
-
-        {/* Links (Desktop and Tablet) */}
+        {/* Navigation Links */}
         <div
-          className={`${
-            menuOpen ? "block" : "hidden"
-          } absolute md:static top-16 left-0 w-full md:w-auto bg-[#032F30] md:flex items-center md:gap-6 z-50`}
+          className={`absolute top-14 left-0 w-full bg-[#ECDCCF] sm:static sm:w-auto sm:flex sm:flex-row sm:gap-20 flex flex-col gap-5 sm:items-center sm:bg-transparent p-4 sm:p-0 transition-all duration-300 ease-in-out ${
+            menuOpen ? "block" : "hidden sm:flex"
+          }`}
         >
-          {isAdmin ? (
-            <>
-              {/* Admin Links */}
-              <Link
-                to="/dashboard"
-                className="block md:inline-block px-6 py-2 md:py-0 hover:underline"
-              >
-                Dashboard
-              </Link>
-              <Link
-                to="/manage-users"
-                className="block md:inline-block px-6 py-2 md:py-0 hover:underline"
-              >
-                Manage Users
-              </Link>
-              <Link
-                to="/lesson-management"
-                className="block md:inline-block px-6 py-2 md:py-0 hover:underline"
-              >
-                Lessons
-              </Link>
-            </>
+          <NavLink
+            className={({ isActive }) =>
+              isActive
+                ? "block border-b-2 border-[#4A4A4A] pl-3 p-1 rounded-md w-20 mx-auto bg-white"
+                : "block border-b-2 border-[#4A4A4A] pl-3 p-1 rounded-md w-20 mx-auto"
+            }
+            to="/Lessons"
+            onClick={() => setMenuOpen(false)} 
+          >
+            Lessons
+          </NavLink>
+
+          <NavLink
+            className={({ isActive }) =>
+              isActive
+                ? "block border-b-2 border-[#4A4A4A] pl-2 p-1 rounded-md w-20 mx-auto bg-white"
+                : "block border-b-2 border-[#4A4A4A] pl-2 p-1 rounded-md w-20 mx-auto"
+            }
+            to="/Tutorials"
+            onClick={() => setMenuOpen(false)} 
+          >
+            Tutorials
+          </NavLink>
+        </div>
+
+        {/* Login / Logout Button */}
+        <div className="mr-3">
+          {isAuthenticated ? (
+            <button
+              onClick={() => {
+                handleLogout();
+                setMenuOpen(false); 
+              }}
+              className="border border-[#4A4A4A] px-2 py-[2px] rounded-lg text-[#4A4A4A]"
+            >
+              Logout
+            </button>
           ) : (
-            <>
-              {/* User Links */}
-              <Link
-                to="/lessons"
-                className="block md:inline-block px-6 py-2 md:py-0 hover:underline"
-              >
-                Lessons
+            <div className="border border-[#4A4A4A] px-2 py-[2px] rounded-lg text-[#4A4A4A]">
+              <Link to="/login" onClick={() => setMenuOpen(false)}>
+                Login
               </Link>
-              <Link
-                to="/tutorials"
-                className="block md:inline-block px-6 py-2 md:py-0 hover:underline"
-              >
-                Tutorials
-              </Link>
-            </>
+            </div>
           )}
-          {/* Logout Button */}
-          <div className="mr-3">
-            {/* Conditionally render Login or Logout button */}
-            {isAuthenticated ? (
-              <p className="border border-[#FFF4B7] px-2 py-[2px] rounded-lg text-[#FFF4B7]">
-                <button onClick={handleLogout}>Logout</button>
-              </p>
-            ) : (
-              <p className="border border-[#FFF4B7] px-2 py-[2px] rounded-lg text-[#FFF4B7]">
-                <Link to="/login">Login</Link>
-              </p>
-            )}
-          </div>
         </div>
       </div>
-    </nav>
+    </div>
   );
 };
 

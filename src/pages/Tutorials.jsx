@@ -21,14 +21,14 @@ const Tutorials = () => {
     return (
         <div className="min-h-screen bg-gray-100 py-8">
             <div className="max-w-6xl mx-auto px-4">
-                <h1 className="text-3xl font-bold text-center mb-6">
+                <h1 className="md:text-3xl text-xl font-bold text-center mb-6">
                     Japanese Language Learning Tutorials
                 </h1>
                 <p className="text-center text-gray-600 mb-10">
                     Watch these videos to enhance your Japanese language skills.
                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {videos.map((video, index) => (
+                    {videos?.map((video, index) => (
                         <div key={index} className="aspect-w-16 aspect-h-9">
                             <iframe
                                 src={video}

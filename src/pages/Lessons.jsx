@@ -46,7 +46,7 @@ const Lessons = () => {
                             <div className="mt-4">
                                 <Link
                                     to={`/lesson/${lesson.lessonNumber}`}
-                                    className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors duration-200"
+                                    className="bg-[#E1BEE7] text-[#4A4A4A] py-2 px-4 rounded-lg hover:bg-[#FCE4EC] transition-colors duration-200"
                                 >
                                     Start Lesson
                                 </Link>
