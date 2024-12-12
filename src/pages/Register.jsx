@@ -9,22 +9,33 @@ const Register = () => {
   const [loading, setLoading] = useState(false); // Loading state
   const navigate = useNavigate();
 
+  // Password validation function
+  const validatePassword = (password) => {
+    const passwordRegex = /^(?=.*\d).{6,}$/; // Must be at least 6 characters and include at least one number
+    return passwordRegex.test(password);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Extract form values
     const name = e.target.name.value.trim();
     const email = e.target.email.value.trim();
     const password = e.target.password.value.trim();
     const imageFile = e.target.image.files[0];
     const role = 'user'; // Default role
 
+    // Check password validity
+    if (!validatePassword(password)) {
+      toast.error('Password must be at least 6 characters long and include at least one number.');
+      return;
+    }
+
     if (!imageFile) {
       toast.error('Please upload a profile photo.');
       return;
     }
 
-    setLoading(true); // Start loading state
+    setLoading(true); 
 
     try {
       // Upload image to image hosting service
@@ -44,7 +55,7 @@ const Register = () => {
 
       const photoUrl = imgResult.data.url; // Extract uploaded image URL
 
-      // Prepare user data
+      
       const userData = {
         name: name.toLowerCase(),
         email: email.toLowerCase(),
@@ -54,7 +65,7 @@ const Register = () => {
       };
 
       // Register the user
-      const response = await fetch('http://localhost:5000/api/register', {
+      const response = await fetch('https://learn-japanese-backend.vercel.app/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(userData),
@@ -67,20 +78,20 @@ const Register = () => {
       }
 
       toast.success('Congrats! Successfully Registered.');
-      e.target.reset(); // Reset the form
-      setTimeout(() => navigate('/login'), 1000); // Redirect to login
+      e.target.reset(); 
+      setTimeout(() => navigate('/login'), 1000); 
     } catch (error) {
       console.error('Error:', error);
       toast.error(error.message || 'An error occurred during registration.');
     } finally {
-      setLoading(false); // Stop loading state
+      setLoading(false); 
     }
   };
 
   return (
     <div className="flex items-center justify-center bg-gray-100 min-h-screen">
       <div className="md:w-[40%] max-w-md w-[95%] p-8 bg-white rounded shadow-lg">
-        <h2 className="font-bold text-center text-[#006A67] text-xl">Registration</h2>
+        <h2 className="font-bold text-center text-[#4A4A4A] text-xl">Registration</h2>
 
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
@@ -130,7 +141,7 @@ const Register = () => {
           <div>
             <button
               type="submit"
-              className="w-full px-4 py-2 text-[#FFF4B7] bg-[#006A67] hover:bg-[#00524d] rounded-md"
+              className="w-full px-4 py-2 text-[#4A4A4A] bg-[#FCE4EC] hover:bg-[#e6bdca] rounded-md"
               disabled={loading}
             >
               {loading ? 'Processing...' : 'Register'}
@@ -140,7 +151,7 @@ const Register = () => {
           <div className="text-center text-sm">
             <p>
               Already Registered?{' '}
-              <Link to="/login" className="text-blue-600">
+              <Link to="/login" className="text-blue-600 ml-2">
                 Login Here
               </Link>
             </p>

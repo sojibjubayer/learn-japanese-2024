@@ -10,7 +10,7 @@ const ManageUsers = () => {
     useEffect(() => {
         const fetchUsers = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/dashboard/users');
+                const response = await axios.get('https://learn-japanese-backend.vercel.app/api/dashboard/users');
                 setUsers(response.data || []); 
                 setLoading(false);
             } catch (error) {
@@ -24,7 +24,7 @@ const ManageUsers = () => {
     const updateUserRole = async (userId, newRole) => {
         try {
             setUpdatingUserId(userId); 
-            const response = await axios.patch(`http://localhost:5000/api/admin/users/${userId}/role`, { role: newRole });
+            const response = await axios.patch(`https://learn-japanese-backend.vercel.app/api/admin/users/${userId}/role`, { role: newRole });
             toast.success(response.data.message);
             setUsers(users.map(user => (user._id === userId ? { ...user, role: newRole } : user)));
         } catch (error) {
@@ -40,12 +40,12 @@ const ManageUsers = () => {
 
     return (
         <div className=" mx-auto p-4">
-            <h1 className="text-2xl font-bold mb-4">Manage Users</h1>
+            <h1 className="text-xl md:text-2xl font-bold mb-4">Manage Users</h1>
             {users.length > 0 ? (
-                 <div className="w-full overflow-x-scroll">
+                 <div className="w-full overflow-x-auto">
                     <table className="w-full  border border-gray-200 ">
                         <thead>
-                            <tr className="bg-gray-100">
+                            <tr className="bg-gray-100 text-base">
                                 <th className="border px-4 py-2">Name</th>
                                 <th className="border px-4 py-2">Email</th>
                                 <th className="border px-4 py-2">Role</th>
@@ -61,7 +61,7 @@ const ManageUsers = () => {
                                     <td className="border px-4 py-2 w-[200px]">
                                         {user.role !== 'admin' ? (
                                             <button
-                                                className="bg-blue-500 text-white px-3 py-1 rounded w-full"
+                                                className="bg-blue-500 text-white px-3 py-1 rounded w-full text-sm md:text-base"
                                                 onClick={() => updateUserRole(user._id, 'admin')}
                                                 disabled={updatingUserId === user._id}
                                             >
@@ -69,7 +69,7 @@ const ManageUsers = () => {
                                             </button>
                                         ) : (
                                             <button
-                                                className="bg-red-500 text-white px-3 py-1 rounded w-full"
+                                                className="bg-red-500 text-white px-3 py-1 rounded w-full text-sm md:text-base"
                                                 onClick={() => updateUserRole(user._id, 'user')}
                                                 disabled={updatingUserId === user._id}
                                             >

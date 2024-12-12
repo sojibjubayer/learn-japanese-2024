@@ -12,7 +12,7 @@ const LessonDetails = () => {
 
     useEffect(() => {
         const fetchLessonData = async () => {
-            const response = await fetch(`http://localhost:5000/api/vocabularies/${lessonNo}`);
+            const response = await fetch(`https://learn-japanese-backend.vercel.app/api/vocabularies/${lessonNo}`);
             const data = await response.json();
             setLessonData(data);
         };
@@ -48,7 +48,7 @@ const LessonDetails = () => {
     };
 
     if (!lessonData || lessonData.length === 0) {
-        return <div>Loading...</div>;
+        return <div className='min-h-screen'>Loading...</div>;
     }
 
     const currentLesson = lessonData[currentIndex];

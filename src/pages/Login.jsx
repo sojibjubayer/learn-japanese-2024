@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [loading, setLoading] = useState(false);
-//   const [user, setUser] = useState({}); 
 
   const navigate = useNavigate();
 
@@ -23,7 +22,7 @@ const Login = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          email,
+          email:email.toLowerCase(),
           password,
         }),
         credentials: 'include', // Include credentials for cookie-based authentication
@@ -68,8 +67,8 @@ const Login = () => {
       
 
       <div className="md:w-[40%] max-w-md w-[95%]  p-8 bg-white rounded shadow-lg my-4">
-        <h2 className="font-bold text-center text-[#006A67] text-2xl mb-6">Login</h2>
-        <h2 className=" text-center text-[#006A67] text-base mb-10">Please login to learn japanese.</h2>
+        <h2 className="font-bold text-center text-[#4A4A4A] text-2xl mb-6">Login</h2>
+        <h2 className=" text-center text-[#4A4A4A] text-base mb-10">Please login to learn japanese.</h2>
        
         <form className="space-y-6" onSubmit={handleSubmit}>
           {/* Name Input */}
@@ -103,7 +102,7 @@ const Login = () => {
           <div>
             <button
               type="submit"
-              className="w-full px-4 py-2 font-semibold text-gray-50 bg-[#DA9E94]"
+              className="w-full px-4 py-2 font-semibold text-[#4A4A4A] bg-[#FCE4EC] hover:bg-[#e6bdca]"
               disabled={loading} 
             >
               {loading ? 'Logging in...' : 'Submit'} 

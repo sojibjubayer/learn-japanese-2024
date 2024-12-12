@@ -1,12 +1,12 @@
-
 import { IoMenu, IoCloseCircleSharp } from "react-icons/io5";
-import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
+import { Link, NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 
 const AdminDashboard = () => {
   const [open, setOpen] = useState(false);
   const sidebarRef = useRef(null);
   const navigate = useNavigate();
+  const location = useLocation();
 
   // Logout handler
   const handleLogout = () => {
@@ -29,17 +29,26 @@ const AdminDashboard = () => {
     };
   }, []);
 
+  // Check if on the root dashboard page
+  const isDashboardRoot = location.pathname === "/dashboard";
+
+  const sidebarLinks = [
+    { path: "/dashboard/add-lesson", label: "Add Lessons" },
+    { path: "/dashboard/add-vocabulary", label: "Add Vocabularies" },
+    { path: "/dashboard/manage-users", label: "Manage Users" },
+    { path: "/dashboard/manage-lessons", label: "Lesson Management" },
+    { path: "/dashboard/manage-vocabularies", label: "Vocabulary Management" },
+    { path: "/dashboard/manage-tutorials", label: "Manage Tutorials" },
+  ];
+
   return (
     <div>
       {/* Admin Navbar */}
-      <div className="flex items-center justify-between bg-[#494A8A] h-14 sticky top-0 font-bangla z-20">
+      <div className="flex items-center justify-between bg-[#494A8A] h-14 sticky top-0 z-20">
         <div className="flex-1">
-          {/* Mobile Sidebar Toggle */}
+          {/* Mobile and Tab Sidebar Toggle */}
           <div className="lg:hidden">
-            <button
-              onClick={() => setOpen(!open)}
-              className="btn btn-ghost"
-            >
+            <button onClick={() => setOpen(!open)} className="btn btn-ghost ml-2">
               {open ? (
                 <IoCloseCircleSharp className="text-2xl text-[#FFF4B7]" />
               ) : (
@@ -52,18 +61,13 @@ const AdminDashboard = () => {
                 open ? "top-12 left-0" : "top-12 -left-60"
               } duration-1000 absolute border-2 border-[#FFF4B7] bg-[#925892] menu-sm ml-2 z-[1] p-2 rounded-box w-52 text-gray-50`}
             >
-              {[
-                { path: "/dashboard/lessons", label: "Lessons" },
-                { path: "/dashboard/add-lesson", label: "Add Lessons" },
-                { path: "/dashboard/add-vocabulary", label: "Add Vocabularies" },
-                { path: "/dashboard/manage-users", label: "Manage Users" },
-                { path: "/dashboard/manage-lessons", label: "Lesson Management" },
-                { path: "/dashboard/manage-vocabularies", label: "Vocabulary Management" },
-              ].map((item) => (
+              {sidebarLinks.map((item) => (
                 <NavLink
                   key={item.path}
                   className={({ isActive }) =>
-                    `w-48 p-1 border-b border-[#FCC09B] block ${isActive ? "bg-[#494A8A]" : "hover:bg-[#494A8A]"}`
+                    `w-48 p-1 border-b border-[#FCC09B] block ${
+                      isActive ? "bg-[#494A8A]" : "hover:bg-[#494A8A]"
+                    }`
                   }
                   to={item.path}
                 >
@@ -74,20 +78,19 @@ const AdminDashboard = () => {
           </div>
         </div>
 
+        {/* Navbar Center (Desktop View) */}
         <div className="flex-1">
           <div className="flex justify-between items-center">
-            <div className="hidden lg:flex items-center font-bold text-[#FFF4B7]">
+            <div className="hidden md:flex items-center font-bold text-[#FFF4B7]">
               <NavLink to="/dashboard">Admin Dashboard</NavLink>
             </div>
-            <Link
-              to="/dashboard"
-              className="flex lg:hidden text-base items-center mr-10"
-            >
+            <Link to="/dashboard" className="flex md:hidden text-base items-center mr-10">
               <div className="flex flex-col ml-1 text-[#FFF4B7] font-bold">
                 Dashboard
               </div>
             </Link>
 
+            {/* Login/Logout Button */}
             <div className="mr-3">
               {isAuthenticated ? (
                 <button
@@ -108,20 +111,16 @@ const AdminDashboard = () => {
 
       {/* Sidebar for Desktop */}
       <div className="flex">
-        <aside className="w-[18%] bg-[#925892] h-screen hidden md:flex pl-5 pt-10 font-semibold text-gray-50">
+        {/* Sidebar for Desktop Only */}
+        <aside className="lg:w-[22%] w-full bg-[#925892] h-screen hidden lg:block pl-5 pt-10 font-semibold text-gray-50">
           <div className="space-y-4">
-            {[
-              { path: "/dashboard/lessons", label: "Lessons" },
-              { path: "/dashboard/add-lesson", label: "Add Lessons" },
-              { path: "/dashboard/add-vocabulary", label: "Add Vocabularies" },
-              { path: "/dashboard/manage-users", label: "Manage Users" },
-              { path: "/dashboard/manage-lessons", label: "Lesson Management" },
-              { path: "/dashboard/manage-vocabularies", label: "Vocabulary Management" },
-            ].map((item) => (
+            {sidebarLinks.map((item) => (
               <NavLink
                 key={item.path}
                 className={({ isActive }) =>
-                  `w-48 p-1 border-b border-[#FCC09B] block ${isActive ? "bg-[#494A8A]" : "hover:bg-[#494A8A]"}`
+                  `w-full p-1 border-b border-[#FCC09B] block ${
+                    isActive ? "bg-[#494A8A]" : "hover:bg-[#494A8A]"
+                  }`
                 }
                 to={item.path}
               >
@@ -131,7 +130,13 @@ const AdminDashboard = () => {
           </div>
         </aside>
 
-        <main className="md:w-[82%] w-full">
+        {/* Main Content */}
+        <main className="w-full lg:w-[78%]">
+          {isDashboardRoot && (
+            <div className="text-center mt-10">
+              <h1 className="text-xl md:text-2xl font-bold text-[#494A8A]">Welcome, Admin!</h1>
+            </div>
+          )}
           <Outlet />
         </main>
       </div>
@@ -140,4 +145,3 @@ const AdminDashboard = () => {
 };
 
 export default AdminDashboard;
-

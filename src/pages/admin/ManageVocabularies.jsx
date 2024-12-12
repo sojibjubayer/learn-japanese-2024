@@ -14,7 +14,7 @@ const ManageVocabularies = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        "http://localhost:5000/api/dashboard/vocabularies",
+        "https://learn-japanese-backend.vercel.app/api/dashboard/vocabularies",
         {
           params: { lessonNumber: lessonFilter }, // Optional filtering based on lesson number
         }
@@ -33,7 +33,7 @@ const ManageVocabularies = () => {
       return;
     try {
       await axios.delete(
-        `http://localhost:5000/api/dashboard/vocabularies/delete/${id}`
+        `https://learn-japanese-backend.vercel.app/api/dashboard/vocabularies/delete/${id}`
       );
       toast.success("Vocabulary deleted successfully");
       fetchVocabularies();
@@ -62,7 +62,7 @@ const ManageVocabularies = () => {
 
     try {
       await axios.put(
-        `http://localhost:5000/api/dashboard/vocabularies/update/${currentVocabulary._id}`,
+        `https://learn-japanese-backend.vercel.app/api/dashboard/vocabularies/update/${currentVocabulary._id}`,
         {
           word,
           pronunciation,
@@ -85,7 +85,7 @@ const ManageVocabularies = () => {
 
   return (
     <div className="p-8 bg-gray-100 min-h-screen">
-      <h1 className="text-2xl font-bold mb-4">Vocabulary Management</h1>
+      <h1 className="text-lg md:text-2xl font-bold mb-4">Vocabulary Management</h1>
       <Toaster />
 
       {/* Filter by Lesson Number */}
@@ -108,7 +108,7 @@ const ManageVocabularies = () => {
           <div className="overflow-x-auto">
             <table className="table-auto w-full border-collapse border border-gray-300">
               <thead>
-                <tr>
+                <tr className="text-sm md:text-base">
                   <th className="border border-gray-300 p-2">Word</th>
                   <th className="border border-gray-300 p-2">Pronunciation</th>
                   <th className="border border-gray-300 p-2">Meaning</th>

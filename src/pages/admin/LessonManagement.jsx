@@ -18,7 +18,7 @@ const LessonManagement = () => {
     setLoading(true);
     setError('');
     try {
-      const response = await axios.get('http://localhost:5000/api/dashboard/lessons');
+      const response = await axios.get('https://learn-japanese-backend.vercel.app/api/dashboard/lessons');
       const { rawLessons, lessonsWithVocabularyCounts } = response.data;
 
       // Merge rawLessons and lessonsWithVocabularyCounts
@@ -45,7 +45,7 @@ const LessonManagement = () => {
     if (!window.confirm('Are you sure you want to delete this lesson?')) return;
 
     try {
-      await axios.delete(`http://localhost:5000/api/lessons/delete/${id}`);
+      await axios.delete(`https://learn-japanese-backend.vercel.app/api/lessons/delete/${id}`);
       fetchLessons(); // Refresh lessons after deletion
       toast.success('Lesson deleted successfully!');
     } catch (err) {
@@ -66,7 +66,7 @@ const LessonManagement = () => {
   // Update a lesson
   const updateLesson = async () => {
     try {
-      await axios.put(`http://localhost:5000/api/lessons/update/${currentLesson._id}`, lessonData);
+      await axios.put(`https://learn-japanese-backend.vercel.app/api/lessons/update/${currentLesson._id}`, lessonData);
       fetchLessons(); // Refresh lessons after update
       toast.success('Lesson updated successfully!');
       setEditMode(false); // Close edit modal
@@ -105,16 +105,16 @@ const LessonManagement = () => {
                   <td className="border border-gray-300 p-2 text-center text-black">{lesson.lessonNumber}</td>
                   <td className="border border-gray-300 p-2">{lesson.lessonName}</td>
                   <td className="border border-gray-300 p-2 text-center">{lesson.vocabularyCount}</td>
-                  <td className="border border-gray-300 p-2 text-center">
+                  <td className="border border-gray-300 p-2 text-center flex flex-col md:flex-row justify-center gap-2">
                     <button
                       onClick={() => editLesson(lesson)}
-                      className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mr-2"
+                      className="bg-blue-500 text-white px-4 w-20  py-1 rounded hover:bg-blue-600 mr-2"
                     >
                       Edit
                     </button>
                     <button
                       onClick={() => deleteLesson(lesson._id)}
-                      className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+                      className="bg-red-500 text-white px-4 w-20 py-1 rounded hover:bg-red-600"
                     >
                       Delete
                     </button>
