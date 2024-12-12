@@ -8,7 +8,7 @@ const Tutorials = () => {
     // Fetch tutorials from the database
     const fetchTutorials = async () => {
         try {
-            const response = await fetch('http://localhost:5000/api/getTutorials');
+            const response = await fetch('https://learn-japanese-backend.vercel.app/api/getTutorials');
             const result = await response.json();
             if (response.ok) {
                 setTutorials(result.tutorials);

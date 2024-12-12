@@ -10,7 +10,7 @@ const ManageTutorials = () => {
   // Fetch all tutorials from the server
   const fetchTutorials = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/getTutorials');
+      const response = await fetch('https://learn-japanese-backend.vercel.app/api/getTutorials');
       const result = await response.json();
       if (response.ok) {
         setTutorials(result.tutorials);
@@ -24,7 +24,7 @@ const ManageTutorials = () => {
   };
 
   useEffect(() => {
-    fetchTutorials(); // Fetch tutorials on page load
+    fetchTutorials(); 
   }, []);
 
   // Add new tutorial
@@ -38,7 +38,7 @@ const ManageTutorials = () => {
     setLoading(true);
 
     try {
-      const response = await fetch('http://localhost:5000/api/postTutorials', {
+      const response = await fetch('https://learn-japanese-backend.vercel.app/api/postTutorials', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ title: newTitle, link: newLink }),
@@ -65,7 +65,7 @@ const ManageTutorials = () => {
       setLoading(true);
 
       try {
-        const response = await fetch(`http://localhost:5000/api/deleteTutorial/${id}`, {
+        const response = await fetch(`https://learn-japanese-backend.vercel.app/api/deleteTutorial/${id}`, {
           method: 'DELETE',
         });
 
